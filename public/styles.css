@@ -189,19 +189,21 @@ select:focus {
     outline: none;
 }
 
-/* Reverted Scanner Styles to Previous Size */
+/* Updated Scanner Styles with Reduced Size */
 .scanner {
     text-align: center;
-    margin: 40px auto; /* Keep centering */
-    padding: 25px; /* Revert to previous padding */
+    margin: 40px auto;
+    padding: 15px; /* Reduced padding */
     background: linear-gradient(145deg, #FFFFFF, #F5F5F5);
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     animation: fadeIn 1.2s ease-out;
-    display: flex; /* Keep flex for centering content */
+    display: flex;
     flex-direction: column;
-    align-items: center; /* Keep content centered */
+    align-items: center;
+    width: 100%; /* Ensure it fits within parent */
+    max-width: 250px; /* Constrain the scanner container */
 }
 
 .scanner:hover {
@@ -565,6 +567,7 @@ select:focus {
     }
 
     .scanner, .allergens, .additives, .colors, .preservatives, .ingredients, .nutritional-values {
-        padding: 20px;
+        padding: 10px; /* Further reduced padding for smaller screens */
+        max-width: 200px; /* Constrain scanner on smaller screens */
     }
 }
