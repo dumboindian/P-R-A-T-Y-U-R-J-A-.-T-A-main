@@ -19,6 +19,16 @@ const auth = getAuth(app);
 document.addEventListener('DOMContentLoaded', () => {
     console.log('index.js loaded successfully');
 
+    // Check if ZXing is loaded
+    if (typeof ZXing === 'undefined') {
+        console.error('ZXing library not loaded. Check the script tag in index.html.');
+        document.getElementById('message').textContent = 'Error: Barcode scanner library failed to load.';
+        document.getElementById('message').classList.add('error');
+        return;
+    } else {
+        console.log('ZXing library loaded successfully:', ZXing);
+    }
+
     const barcodeInput = document.getElementById('barcode');
     const searchBtn = document.getElementById('search-btn');
     const messageDiv = document.getElementById('message');
@@ -31,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!barcodeInput || !searchBtn || !messageDiv || !startScannerBtn || !stopScannerBtn || !video || !logoutBtn || !profileBtn) {
         console.error('index.js: Missing elements');
+        messageDiv.textContent = 'Error: Missing required elements on the page.';
+        messageDiv.classList.add('error');
         return;
     }
 
@@ -65,26 +77,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startScannerBtn.addEventListener('click', async () => {
         try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            console.log('Requesting camera access...');
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: 'environment',
+                    width: { ideal: 320 }, // Reduced resolution for better performance
+                    height: { ideal: 240 },
+                    focusMode: 'continuous' // Ensure continuous focus
+                }
+            });
+            console.log('Camera stream acquired:', stream);
             video.srcObject = stream;
             video.style.display = 'block';
-            video.play();
+            console.log('Video element updated, playing video...');
+            await video.play();
+            console.log('Video playing, dimensions:', video.videoWidth, 'x', video.videoHeight);
             startScannerBtn.disabled = true;
             stopScannerBtn.disabled = false;
             scanBarcode();
         } catch (error) {
             console.error('Error accessing camera:', error);
-            messageDiv.textContent = 'Error accessing camera. Please ensure you have granted permission.';
+            messageDiv.textContent = 'Error accessing camera: ' + error.message;
             messageDiv.classList.add('error');
         }
     });
 
     stopScannerBtn.addEventListener('click', () => {
+        console.log('Stopping scanner...');
         if (stream) {
-            stream.getTracks().forEach(track => track.stop());
+            stream.getTracks().forEach(track => {
+                console.log('Stopping track:', track);
+                track.stop();
+            });
             video.style.display = 'none';
             startScannerBtn.disabled = false;
             stopScannerBtn.disabled = true;
+            stream = null;
+            console.log('Scanner stopped.');
         }
     });
 
@@ -95,12 +124,32 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log('Scanning frame with ZXing...');
+        console.log('Starting barcode scan with ZXing...');
+        console.log('Video dimensions:', video.videoWidth, 'x', video.videoHeight);
         const codeReader = new ZXing.BrowserMultiFormatReader();
+        console.log('ZXing code reader initialized:', codeReader);
+
         try {
+            // Provide hints to ZXing for better barcode detection
+            const hints = new Map();
+            hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, [
+                ZXing.BarcodeFormat.UPC_A,
+                ZXing.BarcodeFormat.UPC_E,
+                ZXing.BarcodeFormat.EAN_13,
+                ZXing.BarcodeFormat.EAN_8,
+                ZXing.BarcodeFormat.CODE_128,
+                ZXing.BarcodeFormat.QR_CODE
+            ]);
+            hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
+            codeReader.hints = hints;
+
+            console.log('Attempting to decode barcode from video...');
             const result = await codeReader.decodeFromVideoElement(video);
-            console.log('Barcode detected:', result.text);
+            console.log('Barcode detected:', result);
+            console.log('Barcode text:', result.text);
             barcodeInput.value = result.text;
+            messageDiv.textContent = 'Barcode detected: ' + result.text;
+            messageDiv.classList.remove('error');
             stopScannerBtn.click();
             searchBtn.click();
         } catch (error) {
