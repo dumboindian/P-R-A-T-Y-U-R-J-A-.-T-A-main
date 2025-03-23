@@ -189,21 +189,19 @@ select:focus {
     outline: none;
 }
 
-/* Updated Scanner Styles */
+/* Reverted Scanner Styles to Previous Size */
 .scanner {
     text-align: center;
-    margin: 40px auto; /* Center the scanner with auto margins */
-    padding: 40px; /* Increased padding for a larger appearance */
+    margin: 40px auto; /* Keep centering */
+    padding: 25px; /* Revert to previous padding */
     background: linear-gradient(145deg, #FFFFFF, #F5F5F5);
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     animation: fadeIn 1.2s ease-out;
-    width: 80%; /* Make the scanner wider */
-    max-width: 600px; /* Set a max-width to ensure it doesn't get too wide */
-    display: flex; /* Use flexbox to center content */
-    flex-direction: column; /* Stack content vertically */
-    align-items: center; /* Center content horizontally */
+    display: flex; /* Keep flex for centering content */
+    flex-direction: column;
+    align-items: center; /* Keep content centered */
 }
 
 .scanner:hover {

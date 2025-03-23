@@ -2,14 +2,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBylEy_Hii_U5sJBn12hSSBBwwQRVKN7w8",
-  authDomain: "jagoindia-f5188.firebaseapp.com",
-  databaseURL: "https://jagoindia-f5188-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "jagoindia-f5188",
-  storageBucket: "jagoindia-f5188.firebasestorage.app",
-  messagingSenderId: "1054822290701",
-  appId: "1:1054822290701:web:33f3dfec9c1548b69b4c44",
-  measurementId: "G-XV9NLY32XW"
+    apiKey: "AIzaSyBylEy_Hii_U5sJBn12hSSBBwwQRVKN7w8",
+    authDomain: "jagoindia-f5188.firebaseapp.com",
+    databaseURL: "https://jagoindia-f5188-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "jagoindia-f5188",
+    storageBucket: "jagoindia-f5188.firebasestorage.app",
+    messagingSenderId: "1054822290701",
+    appId: "1:1054822290701:web:33f3dfec9c1548b69b4c44",
+    measurementId: "G-XV9NLY32XW"
 };
 
 // Initialize Firebase
@@ -25,13 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const startScannerBtn = document.getElementById('start-scanner-btn');
     const stopScannerBtn = document.getElementById('stop-scanner-btn');
     const video = document.getElementById('scanner-video');
-    const canvas = document.getElementById('scanner-canvas');
-    const canvasContext = canvas.getContext('2d');
     const logoutBtn = document.getElementById('logout-btn');
     const profileBtn = document.getElementById('profile-btn');
     let stream = null;
 
-    if (!barcodeInput || !searchBtn || !messageDiv || !startScannerBtn || !stopScannerBtn || !video || !canvas || !logoutBtn || !profileBtn) {
+    if (!barcodeInput || !searchBtn || !messageDiv || !startScannerBtn || !stopScannerBtn || !video || !logoutBtn || !profileBtn) {
         console.error('index.js: Missing elements');
         return;
     }
@@ -73,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             video.play();
             startScannerBtn.disabled = true;
             stopScannerBtn.disabled = false;
-            canvas.style.display = 'none';
             scanBarcode();
         } catch (error) {
             console.error('Error accessing camera:', error);
@@ -91,24 +88,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function scanBarcode() {
+    async function scanBarcode() {
         if (!video.videoWidth || !video.videoHeight) {
+            console.log('Video dimensions not ready:', video.videoWidth, video.videoHeight);
             requestAnimationFrame(scanBarcode);
             return;
         }
 
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
-        const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-        if (code) {
-            console.log('Barcode detected:', code.data);
-            barcodeInput.value = code.data;
+        console.log('Scanning frame with ZXing...');
+        const codeReader = new ZXing.BrowserMultiFormatReader();
+        try {
+            const result = await codeReader.decodeFromVideoElement(video);
+            console.log('Barcode detected:', result.text);
+            barcodeInput.value = result.text;
             stopScannerBtn.click();
             searchBtn.click();
-        } else {
+        } catch (error) {
+            console.log('No barcode detected in this frame:', error);
             requestAnimationFrame(scanBarcode);
         }
     }

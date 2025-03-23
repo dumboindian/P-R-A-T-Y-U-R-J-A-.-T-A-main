@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P.R.A.T.Y.U.R.J.A</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@zxing/library@0.19.1/umd/index.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,11 +24,9 @@
             <button class="scanner-btn" id="start-scanner-btn">Start Scanner</button>
             <button class="scanner-btn" id="stop-scanner-btn" disabled>Stop Scanner</button>
             <video id="scanner-video" style="width: 100%; max-width: 300px; display: none;"></video>
-            <canvas id="scanner-canvas" style="display: none;"></canvas>
         </div>
         <div id="message"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script type="module" src="index.js"></script>
 </body>
 </html>
