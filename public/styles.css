@@ -56,11 +56,11 @@ body::before {
 
 /* Updated Heading Styles */
 h1, h2, h3 {
-    color: #0D47A1; /* Darker blue for better contrast */
+    color: #0D47A1;
     margin: 0 0 20px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15); /* Stronger shadow for readability */
-    position: relative; /* For underline effect */
-    padding-bottom: 8px; /* Space for underline */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    position: relative;
+    padding-bottom: 8px;
 }
 
 /* Add an animated underline effect to headings */
@@ -71,23 +71,23 @@ h1::after, h2::after, h3::after {
     left: 0;
     width: 0;
     height: 3px;
-    background: linear-gradient(90deg, #1976D2, #42A5F5); /* Blue gradient underline */
+    background: linear-gradient(90deg, #1976D2, #42A5F5);
     transition: width 0.5s ease;
 }
 
 h1:hover::after, h2:hover::after, h3:hover::after {
-    width: 100%; /* Underline animates on hover */
+    width: 100%;
 }
 
 /* Specific styles for headings in the header */
 .header h1, .header h2, .header h3 {
-    color: #FFFFFF; /* White for contrast against the blue header */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Stronger shadow for readability */
-    padding-bottom: 0; /* No underline in header */
+    color: #FFFFFF;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    padding-bottom: 0;
 }
 
 .header h1::after, .header h2::after, .header h3::after {
-    display: none; /* No underline in header */
+    display: none;
 }
 
 h1 {
@@ -189,16 +189,21 @@ select:focus {
     outline: none;
 }
 
-/* Scanner */
+/* Updated Scanner Styles */
 .scanner {
     text-align: center;
-    margin-bottom: 40px;
-    padding: 25px;
+    margin: 40px auto; /* Center the scanner with auto margins */
+    padding: 40px; /* Increased padding for a larger appearance */
     background: linear-gradient(145deg, #FFFFFF, #F5F5F5);
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     animation: fadeIn 1.2s ease-out;
+    width: 80%; /* Make the scanner wider */
+    max-width: 600px; /* Set a max-width to ensure it doesn't get too wide */
+    display: flex; /* Use flexbox to center content */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
 }
 
 .scanner:hover {
