@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - P.R.A.T.Y.U.R.J.A</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>User Profile</h1>
+            <button class="logout-btn" id="logout-btn">Logout</button>
+        </div>
+        <div id="loading">Loading profile...</div>
+        <div id="profile" style="display: none;">
+            <form id="profile-form">
+                <h3>Personal Information</h3>
+                <input type="text" id="profile-name" placeholder="Name" required>
+                <input type="text" id="profile-surname" placeholder="Surname" required>
+                <input type="number" id="profile-age" placeholder="Age" required min="1" max="120">
+                <input type="text" id="profile-address" placeholder="Address" required>
+                <div class="input-group">
+                    <select id="profile-country-code" required>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+91">+91 (India)</option>
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+33">+33 (France)</option>
+                        <option value="+49">+49 (Germany)</option>
+                        <option value="+81">+81 (Japan)</option>
+                        <option value="+61">+61 (Australia)</option>
+                    </select>
+                    <input type="tel" id="profile-phone" placeholder="Phone Number (e.g., 1234567890)" required>
+                </div>
+                <input type="email" id="profile-email" placeholder="Email" required disabled>
+                <h3>Allergies and Preferences</h3>
+                <input type="text" id="profile-allergens" placeholder="Allergens (e.g., peanuts, milk, soy)">
+                <input type="text" id="profile-dietary" placeholder="Dietary Preferences (e.g., vegetarian, gluten-free)">
+                <h3>Language Preference</h3>
+                <select id="profile-language" required>
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                    <option value="de">German</option>
+                </select>
+                <button type="submit">Save Changes</button>
+            </form>
+            <div id="profile-message"></div>
+            <button class="back-btn" id="back-btn">Back to Home</button>
+        </div>
+    </div>
+    <script type="module" src="profile.js"></script>
+</body>
+</html>

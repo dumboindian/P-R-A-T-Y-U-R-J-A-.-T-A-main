@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - P.R.A.T.Y.U.R.J.A</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <h1>P.R.A.T.Y.U.R.J.A</h1>
+            <div class="auth-toggle">
+                <button class="toggle-btn active" id="login-toggle">Login</button>
+                <button class="toggle-btn" id="signup-toggle">Sign Up</button>
+            </div>
+            <div class="auth-forms">
+                <div class="form-container" id="form-container">
+                    <!-- Login Form -->
+                    <div class="form-panel" id="login-form">
+                        <form id="login-form-element">
+                            <input type="email" id="login-email" placeholder="Email" required>
+                            <input type="password" id="login-password" placeholder="Password" required>
+                            <button type="submit">Login</button>
+                            <div id="login-message"></div>
+                        </form>
+                    </div>
+                    <!-- Signup Form -->
+                    <div class="form-panel" id="signup-form">
+                        <form id="signup-form-element">
+                            <input type="text" id="signup-name" placeholder="Name" required>
+                            <input type="text" id="signup-surname" placeholder="Surname" required>
+                            <input type="number" id="signup-age" placeholder="Age" required min="1" max="120">
+                            <input type="text" id="signup-address" placeholder="Address" required>
+                            <!-- Country Code Dropdown -->
+                            <select id="signup-country-code" required>
+                                <option value="" disabled selected>Select Country Code</option>
+                                <option value="+1">+1 (USA)</option>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+33">+33 (France)</option>
+                                <option value="+49">+49 (Germany)</option>
+                                <option value="+81">+81 (Japan)</option>
+                                <option value="+61">+61 (Australia)</option>
+                            </select>
+                            <input type="tel" id="signup-phone" placeholder="Phone Number (e.g., 1234567890)" required>
+                            <input type="email" id="signup-email" placeholder="Email" required>
+                            <input type="password" id="signup-password" placeholder="Password" required>
+                            <input type="text" id="signup-allergens" placeholder="Allergens (e.g., peanuts, milk, soy)" title="Enter allergens separated by commas">
+                            <select id="signup-dietary" required>
+                                <option value="" disabled selected>Select Dietary Preference</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="non-vegetarian">Non-Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                            </select>
+                            <select id="signup-language" required>
+                                <option value="" disabled selected>Select Preferred Language</option>
+                                <option value="en">English</option>
+                                <option value="fr">French</option>
+                                <option value="es">Spanish</option>
+                                <option value="de">German</option>
+                            </select>
+                            <button type="submit">Sign Up</button>
+                            <div id="signup-message"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - P.R.A.T.Y.U.R.J.A</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Product Details</h1>
+            <div>
+                <button class="back-btn" id="profile-btn">View Profile</button>
+                <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+        </div>
+        <div id="loading">
+            <p>Loading product data...</p>
+            <div class="spinner"></div>
+        </div>
+        <div id="result" style="display: none;">
+            <!-- Warning Section -->
+            <div class="warning-section">
+                <h3>Allergen Warning</h3>
+                <div id="allergen-loading">
+                    <p>Loading allergen data...</p>
+                    <div class="spinner"></div>
+                </div>
+                <div class="warning-message" id="warning-message" style="display: none;"></div>
+            </div>
+            <!-- Product Details -->
+            <div id="product-details"></div>
+        </div>
+    </div>
+    <script type="module" src="results.js"></script>
+</body>
+</html>
